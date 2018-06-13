@@ -9,5 +9,5 @@ const options = {
 };
 
 server.start(options, ({ port }) =>
-  console.log(`Server is running on http://localhost:${4000}`)
+  console.log(`Server is running on url http://localhost:${port}`)
 );
