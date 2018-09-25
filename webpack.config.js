@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
 const path = require("path");
-const BundleAnalyzer = require("webpack-bundle-analyzer");
+// const BundleAnalyzer = require("webpack-bundle-analyzer");
 
 const packageJson = require("./package.json");
 const vendorDependencies = Object.keys(packageJson["dependencies"]);
@@ -19,10 +19,9 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
     chunkFilename: "[chunkhash].js"
-    // publicPath: "/"
   },
   plugins: [
-    new BundleAnalyzer.BundleAnalyzerPlugin(),
+    // new BundleAnalyzer.BundleAnalyzerPlugin(),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
       raw: true,
@@ -37,14 +36,17 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        loader: "babel-loader!ts-loader"
-        // use: [{ loader: "babel-loader" }, { loader: "ts-loader" }]
+        loader: "babel-loader"
       },
       {
         test: /\.js$/,
+        use: ["source-map-loader"],
+        enforce: "pre"
+      },
+      {
+        test: /\.graphql$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
-        // use: [{ loader: "babel-loader" }]
+        use: [{ loader: "graphql-import-loader" }]
       }
     ]
   }

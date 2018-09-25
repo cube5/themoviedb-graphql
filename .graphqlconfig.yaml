@@ -1,0 +1,9 @@
+projects:
+  themoviedb-graphql:
+    schemaPath: src/graphql/schema.graphql
+    extensions:
+      codegen:
+        - generator: prisma-binding
+          language: typescript
+          output:
+            binding: src/generated/prisma.ts

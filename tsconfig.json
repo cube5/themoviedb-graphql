@@ -14,5 +14,6 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "skipLibCheck": true
-  }
+  },
+  "files": ["typings/graphql.d.ts"]
 }
