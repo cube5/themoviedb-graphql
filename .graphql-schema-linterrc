@@ -1,0 +1,7 @@
+{
+  "rules": [
+    "defined-types-are-used",
+    "enum-values-all-caps",
+    "types-are-capitalized"
+  ]
+}
