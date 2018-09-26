@@ -1,8 +1,12 @@
 {
   "extends": ["tslint:recommended"],
+  "linterOptions": {
+    "exclude": ["src/generated/**"]
+  },
   "rules": {
     "no-console": false,
     "no-var-requires": false,
+    "object-literal-sort-keys": false,
     "ordered-imports": false,
     "trailing-comma": false
   }

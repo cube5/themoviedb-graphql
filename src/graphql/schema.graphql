@@ -1,12 +1,29 @@
-input DiscoverInput {
-  language: String
-  sort_by: String
-  include_adult: Boolean
-  include_video: Boolean
-  page: Int
+enum SortBy {
+  POPULARITY_ASC
+  POPULARITY_DESC
+  RELEASE_DATE_ASC
+  RELEASE_DATE_DESC
+  REVENUE_ASC
+  REVENUE_DESC
+  PRIMARY_RELEASE_DATE_ASC
+  PRIMARY_RELEASE_DATE_DESC
+  ORIGINAL_TITLE_ASC
+  ORIGINAL_TITLE_DESC
+  VOTE_AVERAGE_ASC
+  VOTE_AVERAGE_DESC
+  VOTE_COUNT_ASC
+  VOTE_COUNT_DESC
 }
 
-type DiscoverReponse {
+interface PaginatedResponse {
+  page: Int
+  total_results: Int
+  total_pages: Int
+  status_message: String
+  status_code: Int
+}
+
+type PaginatedMoviesResponse implements PaginatedResponse {
   page: Int
   results: [Movie]
   total_results: Int
@@ -33,5 +50,17 @@ type Movie {
 }
 
 type Query {
-  discover(input: DiscoverInput): DiscoverReponse!
+  discover(
+    language: String
+    sort_by: SortBy
+    include_adult: Boolean
+    include_video: Boolean
+    page: Int
+  ): PaginatedMoviesResponse!
+  search(
+    query: String
+    year: Int
+    include_adult: Boolean
+    page: Int
+  ): PaginatedMoviesResponse!
 }

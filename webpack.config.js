@@ -7,7 +7,6 @@ const packageJson = require("./package.json");
 const vendorDependencies = Object.keys(packageJson["dependencies"]);
 
 module.exports = {
-  mode: "development",
   entry: {
     main: "./src/index.ts",
     vendor: vendorDependencies

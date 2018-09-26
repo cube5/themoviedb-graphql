@@ -1,19 +1,15 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "lib": ["dom", "es2015", "es2016"],
-    "jsx": "preserve",
-    "target": "es2016",
-    "module": "es2015",
+    "target": "es5",
     "moduleResolution": "node",
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
+    "module": "commonjs",
     "sourceMap": true,
-    "skipLibCheck": true
+    "noUnusedLocals": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "lib": ["esnext.asynciterable", "es2016", "dom"]
   },
+  "exclude": ["node_modules", "dist"],
   "files": ["typings/graphql.d.ts"]
 }
