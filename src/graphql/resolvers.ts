@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { DiscoverResponse } from "../generated/binding";
+import { PaginatedMoviesResponse } from "../generated/binding";
 
 const resolvers = {
   SortBy: {
@@ -19,7 +19,7 @@ const resolvers = {
     VOTE_COUNT_DESC: "vote_count.desc"
   },
   Query: {
-    async discover(_: any, args: any): Promise<DiscoverResponse> {
+    async discover(_: any, args: any): Promise<PaginatedMoviesResponse> {
       return api.discover(args);
     }
   }

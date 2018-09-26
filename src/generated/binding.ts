@@ -4,7 +4,8 @@ import { IResolvers } from 'graphql-tools/dist/Interfaces'
 import schema from  '../graphql/schema'
 
 export interface Query {
-    discover: <T = DiscoverResponse>(args: { language?: String, sort_by?: SortBy, include_adult?: Boolean, include_video?: Boolean, page?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    discover: <T = PaginatedMoviesResponse>(args: { language?: String, sort_by?: SortBy, include_adult?: Boolean, include_video?: Boolean, page?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    search: <T = PaginatedMoviesResponse>(args: { query?: String, year?: Int, include_adult?: Boolean, page?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {}
@@ -50,6 +51,14 @@ export type SortBy =   'POPULARITY_ASC' |
   'VOTE_COUNT_ASC' |
   'VOTE_COUNT_DESC'
 
+export interface PaginatedResponse {
+  page?: Int
+  total_results?: Int
+  total_pages?: Int
+  status_message?: String
+  status_code?: Int
+}
+
 export interface Movie {
   vote_count?: Int
   id: ID_Output
@@ -67,7 +76,7 @@ export interface Movie {
   release_date?: String
 }
 
-export interface DiscoverResponse {
+export interface PaginatedMoviesResponse extends PaginatedResponse {
   page?: Int
   results?: Movie[]
   total_results?: Int
