@@ -10,15 +10,12 @@ const API_KEY = process.env.API_KEY;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  dataSources: () => {
-    return {
-      movieAPI: new MovieAPI(),
-      discoverAPI: new DiscoverAPI(),
-      searchAPI: new SearchAPI()
-    };
-  },
   context: { API_KEY },
-  debug: true
+  dataSources: () => ({
+    movieAPI: new MovieAPI(),
+    discoverAPI: new DiscoverAPI(),
+    searchAPI: new SearchAPI()
+  })
 });
 
 server.listen().then(({ url }) => {
