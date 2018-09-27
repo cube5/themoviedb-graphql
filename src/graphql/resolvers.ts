@@ -1,5 +1,4 @@
-import * as api from "../api";
-import { PaginatedMoviesResponse } from "../generated/binding";
+import { PaginatedMoviesResponse, MovieDetail } from "../generated/binding";
 
 const resolvers = {
   SortBy: {
@@ -18,9 +17,31 @@ const resolvers = {
     VOTE_COUNT_ASC: "vote_count.asc",
     VOTE_COUNT_DESC: "vote_count.desc"
   },
+  MovieStatus: {
+    RUMORED: "Rumored",
+    PLANNED: "Planned",
+    IN_PRODUCTION: "In Production",
+    POST_PRODUCTION: "Post Production",
+    RELEASED: "Released",
+    CANCELED: "Canceled"
+  },
   Query: {
-    async discover(_: any, args: any): Promise<PaginatedMoviesResponse> {
-      return api.discover(args);
+    async movie(_: any, args: any, { dataSources }): Promise<MovieDetail> {
+      return dataSources.movieAPI.fetchMovie(args.id);
+    },
+    async discover(
+      _: any,
+      args: any,
+      { dataSources } // apollo server context
+    ): Promise<PaginatedMoviesResponse> {
+      return dataSources.discoverAPI.fetchMovies(args);
+    },
+    async search(
+      _: any,
+      args: any,
+      { dataSources }
+    ): Promise<PaginatedMoviesResponse> {
+      return dataSources.searchAPI.searchMovies(args);
     }
   }
 };

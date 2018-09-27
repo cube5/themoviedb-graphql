@@ -1,4 +1,11 @@
 {
-  "presets": ["@babel/preset-typescript", "@babel/preset-env"],
-  "plugins": ["@babel/plugin-transform-runtime", ]
+  "presets": [
+    "@babel/preset-typescript", [
+      "@babel/preset-env",
+      {
+        exclude: ['babel-plugin-transform-classes'],
+      }
+    ]
+  ],
+  "plugins": ["@babel/plugin-transform-runtime", "@babel/plugin-proposal-class-properties"]
 }

@@ -1,7 +1,10 @@
 require("dotenv").config();
-import discover from "./discover";
+import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
 
-export const API_KEY = process.env.API_KEY;
-export const baseUrl = `https://api.themoviedb.org/3`;
+export default class TheMovieDBAPI extends RESTDataSource {
+  public baseURL = "https://api.themoviedb.org/3/";
 
-export { discover };
+  public willSendRequest(request: RequestOptions) {
+    request.params.set("api_key", this.context.API_KEY);
+  }
+}
