@@ -46,6 +46,22 @@ type Genre {
   name: String
 }
 
+type TVShow {
+  id: ID
+  backdrop_path: String
+  first_air_date: String
+  genre_ids: [Int]
+  name: String
+  overview: String
+  origin_country: [String]
+  original_language: String
+  original_name: String
+  popularity: Float
+  poster_path: String
+  vote_average: Float
+  vote_count: Int
+}
+
 type Movie {
   id: ID
   adult: Boolean
@@ -56,11 +72,11 @@ type Movie {
   overview: String
   popularity: Float
   poster_path: String
-  vote_count: Int
   release_date: String
   title: String
   video: Boolean
   vote_average: Float
+  vote_count: Int
 }
 
 type MovieDetail {
@@ -91,6 +107,13 @@ type MovieDetail {
   vote_count: Int
 }
 
+type PaginatedTVShowsResponse {
+  page: Int
+  results: [TVShow]
+  total_results: Int
+  total_pages: Int
+}
+
 type PaginatedMoviesResponse {
   page: Int
   results: [Movie]
@@ -98,19 +121,36 @@ type PaginatedMoviesResponse {
   total_pages: Int
 }
 
+input DiscoverMoviesInput {
+  language: String
+  sort_by: SortBy
+  include_adult: Boolean
+  include_video: Boolean
+  page: Int
+}
+
+input DiscoverTvShowsInput {
+  language: String
+  sort_by: SortBy
+  include_adult: Boolean
+  include_video: Boolean
+  page: Int
+}
+
+input SearchInput {
+  query: String!
+  year: Int
+  include_adult: Boolean
+  page: Int
+}
+
+type Discover {
+  movies(input: DiscoverMoviesInput): PaginatedMoviesResponse
+  tvShows(input: DiscoverTvShowsInput): PaginatedTVShowsResponse
+}
+
 type Query {
+  discover: Discover
   movie(id: ID!): MovieDetail
-  discover(
-    language: String
-    sort_by: SortBy
-    include_adult: Boolean
-    include_video: Boolean
-    page: Int
-  ): PaginatedMoviesResponse!
-  search(
-    query: String!
-    year: Int
-    include_adult: Boolean
-    page: Int
-  ): PaginatedMoviesResponse!
+  search(input: SearchInput): PaginatedMoviesResponse!
 }

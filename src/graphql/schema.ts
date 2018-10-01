@@ -1,9 +1,9 @@
-import * as fs from "fs";
-import { makeExecutableSchema } from "graphql-tools";
+import { readFileSync } from "fs";
 import { GraphQLSchema } from "graphql";
+import { makeExecutableSchema } from "graphql-tools";
 
 const schema: GraphQLSchema = makeExecutableSchema({
-  typeDefs: fs.readFileSync(__dirname + "/schema.graphql", "utf-8"),
+  typeDefs: readFileSync(__dirname + "/schema.graphql", "utf-8"),
   resolverValidationOptions: {
     requireResolversForResolveType: false
   }

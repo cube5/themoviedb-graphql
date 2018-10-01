@@ -1,6 +1,12 @@
-import { PaginatedMoviesResponse, MovieDetail } from "../generated/binding";
+import {
+  PaginatedMoviesResponse,
+  MovieDetail,
+  DiscoverMoviesInput,
+  DiscoverTvShowsInput
+} from "@/generated/binding";
 
 const resolvers = {
+  // Enum map to handle internal values
   SortBy: {
     POPULARITY_ASC: "popularity.asc",
     POPULARITY_DESC: "popularity.desc",
@@ -17,6 +23,7 @@ const resolvers = {
     VOTE_COUNT_ASC: "vote_count.asc",
     VOTE_COUNT_DESC: "vote_count.desc"
   },
+  // Enum map to handle internal values
   MovieStatus: {
     RUMORED: "Rumored",
     PLANNED: "Planned",
@@ -25,24 +32,33 @@ const resolvers = {
     RELEASED: "Released",
     CANCELED: "Canceled"
   },
-  Query: {
-    async movie(_: any, args: any, { dataSources }): Promise<MovieDetail> {
-      return dataSources.movieAPI.fetchMovie(args.id);
-    },
-    async discover(
+  // When the graphql type 'Discover' is requested, this will be executed
+  Discover: {
+    async movies(
       _: any,
-      args: any,
-      { dataSources } // apollo server context
-    ): Promise<PaginatedMoviesResponse> {
-      return dataSources.discoverAPI.fetchMovies(args);
+      args: { input: DiscoverMoviesInput },
+      { dataSources }
+    ): Promise<MovieDetail> {
+      return dataSources.discoverAPI.fetchMovies(args.input);
     },
-    async search(
+    async tvShows(
+      _: any,
+      args: { input: DiscoverTvShowsInput },
+      { dataSources }
+    ): Promise<MovieDetail> {
+      return dataSources.discoverAPI.fetchTvShows(args.input);
+    }
+  },
+  Query: {
+    discover: async () => ({}),
+    movie: async (_: any, args: any, { dataSources }): Promise<MovieDetail> =>
+      dataSources.movieAPI.fetchMovie(args.id),
+    search: async (
       _: any,
       args: any,
       { dataSources }
-    ): Promise<PaginatedMoviesResponse> {
-      return dataSources.searchAPI.searchMovies(args);
-    }
+    ): Promise<PaginatedMoviesResponse> =>
+      dataSources.searchAPI.searchMovies(args)
   }
 };
 
