@@ -5,8 +5,8 @@ import schema from  '../graphql/schema'
 
 export interface Query {
     movie: <T = MovieDetail | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    discover: <T = PaginatedMoviesResponse>(args: { language?: String, sort_by?: SortBy, include_adult?: Boolean, include_video?: Boolean, page?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    search: <T = PaginatedMoviesResponse>(args: { query: String, year?: Int, include_adult?: Boolean, page?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    discover: <T = Discover | null>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    search: <T = PaginatedMoviesResponse>(args: { input?: SearchInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {}
@@ -37,13 +37,6 @@ export const Binding = makeBindingClass<BindingConstructor<Binding>>({ schema })
  * Types
 */
 
-export type MovieStatus =   'RUMORED' |
-  'PLANNED' |
-  'IN_PRODUCTION' |
-  'POST_PRODUCTION' |
-  'RELEASED' |
-  'CANCELED'
-
 export type SortBy =   'POPULARITY_ASC' |
   'POPULARITY_DESC' |
   'RELEASE_DATE_ASC' |
@@ -59,45 +52,34 @@ export type SortBy =   'POPULARITY_ASC' |
   'VOTE_COUNT_ASC' |
   'VOTE_COUNT_DESC'
 
-export interface ProductionCompany {
-  id: ID_Output
-  logo_path?: String
-  name?: String
-  origin_country?: String
-}
+export type MovieStatus =   'RUMORED' |
+  'PLANNED' |
+  'IN_PRODUCTION' |
+  'POST_PRODUCTION' |
+  'RELEASED' |
+  'CANCELED'
 
-export interface Movie {
-  id?: ID_Output
-  adult?: Boolean
-  backdrop_path?: String
-  genre_ids?: Int[]
-  original_language?: String
-  original_title?: String
-  overview?: String
-  popularity?: Float
-  poster_path?: String
-  vote_count?: Int
-  release_date?: String
-  title?: String
-  video?: Boolean
-  vote_average?: Float
-}
-
-export interface PaginatedMoviesResponse {
+export interface SearchInput {
+  query: String
+  year?: Int
+  include_adult?: Boolean
   page?: Int
-  results?: Movie[]
-  total_results?: Int
-  total_pages?: Int
 }
 
-export interface SpokenLanguage {
-  iso_639_1?: String
-  name?: String
+export interface DiscoverMoviesInput {
+  language?: String
+  sort_by?: SortBy
+  include_adult?: Boolean
+  include_video?: Boolean
+  page?: Int
 }
 
-export interface ProductionCountry {
-  iso_3166_1?: String
-  name?: String
+export interface DiscoverTvShowsInput {
+  language?: String
+  sort_by?: SortBy
+  include_adult?: Boolean
+  include_video?: Boolean
+  page?: Int
 }
 
 export interface MovieDetail {
@@ -128,8 +110,77 @@ export interface MovieDetail {
   vote_count?: Int
 }
 
+export interface Movie {
+  id?: ID_Output
+  adult?: Boolean
+  backdrop_path?: String
+  genre_ids?: Int[]
+  original_language?: String
+  original_title?: String
+  overview?: String
+  popularity?: Float
+  poster_path?: String
+  release_date?: String
+  title?: String
+  video?: Boolean
+  vote_average?: Float
+  vote_count?: Int
+}
+
+export interface Discover {
+  movies?: PaginatedMoviesResponse
+  tvShows?: PaginatedTVShowsResponse
+}
+
+export interface PaginatedMoviesResponse {
+  page?: Int
+  results?: Movie[]
+  total_results?: Int
+  total_pages?: Int
+}
+
+export interface TVShow {
+  id?: ID_Output
+  backdrop_path?: String
+  first_air_date?: String
+  genre_ids?: Int[]
+  name?: String
+  overview?: String
+  origin_country?: String[]
+  original_language?: String
+  original_name?: String
+  popularity?: Float
+  poster_path?: String
+  vote_average?: Float
+  vote_count?: Int
+}
+
+export interface ProductionCompany {
+  id: ID_Output
+  logo_path?: String
+  name?: String
+  origin_country?: String
+}
+
+export interface PaginatedTVShowsResponse {
+  page?: Int
+  results?: TVShow[]
+  total_results?: Int
+  total_pages?: Int
+}
+
 export interface Genre {
   id?: ID_Output
+  name?: String
+}
+
+export interface SpokenLanguage {
+  iso_639_1?: String
+  name?: String
+}
+
+export interface ProductionCountry {
+  iso_3166_1?: String
   name?: String
 }
 
@@ -138,11 +189,6 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 */
 export type ID_Input = string | number
 export type ID_Output = string
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
@@ -158,3 +204,8 @@ export type Float = number
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean
