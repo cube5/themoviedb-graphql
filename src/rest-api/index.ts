@@ -6,5 +6,6 @@ export default class TheMovieDBAPI extends RESTDataSource {
 
   public willSendRequest(request: RequestOptions) {
     request.params.set("api_key", this.context.API_KEY);
+    console.log("request", request);
   }
 }

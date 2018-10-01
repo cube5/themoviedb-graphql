@@ -1,5 +1,5 @@
-import TheMovieDBAPI from "../";
-import { PaginatedMoviesResponse } from "../../generated/binding";
+import TheMovieDBAPI from "@/rest-api";
+import { PaginatedMoviesResponse } from "@/generated/binding";
 
 export default class MovieAPI extends TheMovieDBAPI {
   public async fetchMovie(id: string): Promise<PaginatedMoviesResponse> {
