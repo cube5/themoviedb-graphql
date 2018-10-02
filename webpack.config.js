@@ -1,6 +1,7 @@
+const path = require("path");
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
-const path = require("path");
+const NodemonPlugin = require("nodemon-webpack-plugin");
 // const BundleAnalyzer = require("webpack-bundle-analyzer");
 
 const packageJson = require("./package.json");
@@ -21,6 +22,7 @@ module.exports = {
   },
   plugins: [
     // new BundleAnalyzer.BundleAnalyzerPlugin(),
+    new NodemonPlugin(),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
       raw: true,
