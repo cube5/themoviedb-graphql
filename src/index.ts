@@ -1,10 +1,10 @@
 import { ApolloServer } from "apollo-server";
 
-import typeDefs from "@/graphql/schema.graphql";
 import resolvers from "@/graphql/resolvers";
-import DiscoverAPI from "@/rest-api/discover";
-import SearchAPI from "@/rest-api/search";
-import MovieAPI from "@/rest-api/movie";
+import typeDefs from "@/generated/schema.graphql";
+import DiscoverAPI from "@/rest-datasource/discover";
+import SearchAPI from "@/rest-datasource/search";
+import MovieAPI from "@/rest-datasource/movie";
 
 const API_KEY = process.env.API_KEY;
 

@@ -1,0 +1,167 @@
+"""
+Schema definition.
+
+This file contains the Queries and Mutations implemented so far,
+there should not be other files containing this kind of operations.
+"""
+type Query {
+  discover: Discover
+  search: Search
+  movie(id: ID!): Movie
+}
+
+type Discover {
+  movies(input: DiscoverMoviesInput): PaginatedMoviesResponse
+  tvShows(input: DiscoverTvShowsInput): PaginatedTVShowsResponse
+}
+
+type Search {
+  movies(input: SearchInput): PaginatedMoviesResponse
+  tvShows(input: SearchInput): PaginatedTVShowsResponse
+}
+
+type Movie {
+  id: ID
+  adult: Boolean
+  backdrop_path: String
+  belongs_to_collection: String
+  budget: Int
+  genres: [Genre]
+  homepage: String
+  imdb_id: String
+  original_language: String
+  original_title: String
+  overview: String
+  popularity: Float
+  poster_path: String
+  production_companies: [ProductionCompany]
+  production_countries: [ProductionCountry]
+  release_date: String
+  revenue: Int
+  runtime: Int
+  spoken_languages: [SpokenLanguage]
+  status: MovieStatus
+  tagline: String
+  title: String
+  video: Boolean
+  vote_average: Float
+  vote_count: Int
+}
+
+type PaginatedMoviesResponse {
+  page: Int
+  results: [MovieDiscover]
+  total_results: Int
+  total_pages: Int
+}
+
+input DiscoverMoviesInput {
+  language: String
+  sort_by: SortBy
+  include_adult: Boolean
+  include_video: Boolean
+  page: Int
+}
+
+type PaginatedTVShowsResponse {
+  page: Int
+  results: [TVShow]
+  total_results: Int
+  total_pages: Int
+}
+
+input DiscoverTvShowsInput {
+  language: String
+  sort_by: SortBy
+  include_adult: Boolean
+  include_video: Boolean
+  page: Int
+}
+
+input SearchInput {
+  query: String!
+  language: String
+  year: Int
+  page: Int
+}
+
+type Genre {
+  id: ID
+  name: String
+}
+
+type ProductionCompany {
+  id: ID!
+  logo_path: String
+  name: String
+  origin_country: String
+}
+
+type ProductionCountry {
+  iso_3166_1: String
+  name: String
+}
+
+type SpokenLanguage {
+  iso_639_1: String
+  name: String
+}
+
+enum MovieStatus {
+  RUMORED
+  PLANNED
+  IN_PRODUCTION
+  POST_PRODUCTION
+  RELEASED
+  CANCELED
+}
+
+type MovieDiscover {
+  id: ID
+  adult: Boolean
+  backdrop_path: String
+  genre_ids: [Int]
+  original_language: String
+  original_title: String
+  overview: String
+  popularity: Float
+  poster_path: String
+  release_date: String
+  title: String
+  video: Boolean
+  vote_average: Float
+  vote_count: Int
+}
+
+enum SortBy {
+  POPULARITY_ASC
+  POPULARITY_DESC
+  RELEASE_DATE_ASC
+  RELEASE_DATE_DESC
+  REVENUE_ASC
+  REVENUE_DESC
+  PRIMARY_RELEASE_DATE_ASC
+  PRIMARY_RELEASE_DATE_DESC
+  ORIGINAL_TITLE_ASC
+  ORIGINAL_TITLE_DESC
+  VOTE_AVERAGE_ASC
+  VOTE_AVERAGE_DESC
+  VOTE_COUNT_ASC
+  VOTE_COUNT_DESC
+}
+
+type TVShow {
+  id: ID
+  backdrop_path: String
+  first_air_date: String
+  genre_ids: [Int]
+  name: String
+  overview: String
+  origin_country: [String]
+  original_language: String
+  original_name: String
+  popularity: Float
+  poster_path: String
+  vote_average: Float
+  vote_count: Int
+}

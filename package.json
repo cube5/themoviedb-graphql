@@ -4,24 +4,23 @@
   "description": "Graphql wrapper for TheMovieDB API.",
   "private": true,
   "scripts": {
-    "develop": "webpack --mode development --watch",
-    "build": "webpack --mode production",
+    "develop": "npm-run-all gql:* build:watch",
     "test": "nyc ava --watch",
-    "graphql:lint": "graphql lint",
-    "graphql:codegen": "graphql lint && graphql codegen"
+    "build": "webpack --mode production",
+    "build:watch": "webpack --mode development --watch",
+    "gql:codegen": "graphql codegen",
+    "gql:prepare": "graphql prepare --project=default --bundle"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.49",
     "@types/dotenv": "^4.0.3",
-    "@types/node-fetch": "^2.1.2",
     "apollo-datasource-rest": "^0.1.5",
     "apollo-server": "^2.1.0",
     "dotenv": "^6.0.0",
     "graphql": "^14.0.2",
-    "graphql-binding": "^2.2.5",
-    "node-fetch": "^2.2.0"
+    "graphql-binding": "^2.2.5"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
@@ -36,6 +35,7 @@
     "graphql-cli": "^2.16.7",
     "graphql-import-loader": "^0.2.1",
     "nodemon-webpack-plugin": "^4.0.3",
+    "npm-run-all": "^4.1.3",
     "nyc": "^13.0.1",
     "source-map-loader": "^0.2.4",
     "source-map-support": "^0.5.9",

@@ -33,7 +33,7 @@ module.exports = {
     alias: {
       "@": path.resolve(__dirname, "src/")
     },
-    extensions: [".ts", ".js"]
+    extensions: [".ts", ".js", ".graphql"]
   },
   module: {
     rules: [

@@ -1,9 +1,12 @@
 schemaPath: src/graphql/schema.graphql
 extensions:
+  endpoints:
+    default: "http://localhost:4000"
+  prepare-bundle: src/generated/schema.graphql
   codegen:
     generator: graphql-binding
     language: typescript
     input:
-      schema: src/graphql/schema.ts
+      schema: src/schema.ts
     output:
-      binding: src/generated/binding.ts
+      binding: src/generated/schema.ts

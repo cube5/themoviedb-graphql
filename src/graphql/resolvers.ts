@@ -1,9 +1,10 @@
 import {
   PaginatedMoviesResponse,
-  MovieDetail,
+  MovieDiscover,
   DiscoverMoviesInput,
-  DiscoverTvShowsInput
-} from "@/generated/binding";
+  DiscoverTvShowsInput,
+  SearchInput
+} from "@/generated/schema";
 
 const resolvers = {
   // Enum map to handle internal values
@@ -38,27 +39,37 @@ const resolvers = {
       _: any,
       args: { input: DiscoverMoviesInput },
       { dataSources }
-    ): Promise<MovieDetail> {
+    ): Promise<MovieDiscover> {
       return dataSources.discoverAPI.fetchMovies(args.input);
     },
     async tvShows(
       _: any,
       args: { input: DiscoverTvShowsInput },
       { dataSources }
-    ): Promise<MovieDetail> {
+    ): Promise<MovieDiscover> {
       return dataSources.discoverAPI.fetchTvShows(args.input);
     }
   },
-  Query: {
-    discover: async () => ({}),
-    movie: async (_: any, args: any, { dataSources }): Promise<MovieDetail> =>
-      dataSources.movieAPI.fetchMovie(args.id),
-    search: async (
+  // When the graphql type 'Seach' is requested, this will be executed
+  Search: {
+    movies: async (
       _: any,
-      args: any,
+      args: { input: SearchInput },
       { dataSources }
     ): Promise<PaginatedMoviesResponse> =>
-      dataSources.searchAPI.searchMovies(args)
+      dataSources.searchAPI.searchMovies(args.input),
+    tvShows: async (
+      _: any,
+      args: { input: SearchInput },
+      { dataSources }
+    ): Promise<PaginatedMoviesResponse> =>
+      dataSources.searchAPI.searchTvShows(args.input)
+  },
+  Query: {
+    discover: async () => ({}),
+    search: async () => ({}),
+    movie: async (_: any, args: any, { dataSources }): Promise<MovieDiscover> =>
+      dataSources.movieAPI.fetchMovie(args.id)
   }
 };
 
