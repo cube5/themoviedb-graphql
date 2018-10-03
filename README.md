@@ -4,7 +4,7 @@
 
 This project shows how to wrap a rest API to use it as a GraphQL endpoint. This may be not the perfect implementation, but I did it the simplier I could.
 
-Each ThMDB endpoint (examples: _/search, /discover_) is in its own folder to avoid having one single big ass class (see [apollo-datasource-rest](https://www.apollographql.com/docs/apollo-server/features/data-sources.html#REST-Data-Source)).
+Each ThMDB endpoint (examples: _/search_, _/discover_) is in its own folder (`rest-datasource/`) to avoid having one single big ass class (see [apollo-datasource-rest](https://www.apollographql.com/docs/apollo-server/features/data-sources.html#REST-Data-Source)).
 
 The project uses Apollo Server, Typescript, Babel, graphql-cli, etc.
 

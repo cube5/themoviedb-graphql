@@ -1,6 +1,6 @@
-# import { Discover } from "discover/discover.graphql"
-# import { Search } from "search/search.graphql"
-# import { Movie } from "movie/movie.graphql"
+# import { Discover } from "schemas/discover.graphql"
+# import { Search } from "schemas/search.graphql"
+# import { Movie } from "schemas/movie.graphql"
 
 """
 Schema definition.
