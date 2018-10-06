@@ -18,9 +18,10 @@ Runs `gql:codegen` and `gql:prepare` to generate necessary files and then runs w
 npm run develop
 ```
 
-### Generates typings from schema.graphql using the `codegen` cmd from [graphql-cli](https://github.com/graphql-cli/graphql-cli#readme)
+### Generates typings from `src/generated/schema.graphql`
 
 It generates the necesary bindings for Typescript in a `.ts` file as described in `.graphqlconfig.yaml`.
+It is meant to be ran only after running `gql:prepare`
 
 ```bash
 npm run gql:codegen
@@ -28,7 +29,7 @@ npm run gql:codegen
 
 ### Bundles the `*.graphql` files into one using the `prepare` cmd from [graphql-cli](https://github.com/graphql-cli/graphql-cli#readme)
 
-It generates the necesary bindings for Typescript in a `.ts` file as described in `.graphqlconfig.yaml`.
+It takes each `.graphql` file and combines it into `src/generated/schema.graphql`
 
 ```bash
 npm run gql:prepare
