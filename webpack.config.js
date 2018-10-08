@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
+const DotenvPlugin = require("dotenv-webpack");
 const NodemonPlugin = require("nodemon-webpack-plugin");
 // const BundleAnalyzer = require("webpack-bundle-analyzer");
 
@@ -22,6 +23,7 @@ module.exports = {
   },
   plugins: [
     // new BundleAnalyzer.BundleAnalyzerPlugin(),
+    new DotenvPlugin(),
     new NodemonPlugin(),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
