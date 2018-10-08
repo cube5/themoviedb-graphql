@@ -1,4 +1,3 @@
-require("dotenv").config();
 import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
 
 export default class TheMovieDBAPI extends RESTDataSource {
