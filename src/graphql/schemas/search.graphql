@@ -1,5 +1,5 @@
-# import { PaginatedMoviesResponse } from "../typeDefs.graphql"
-# import { PaginatedTVShowsResponse } from "../typeDefs.graphql"
+# import { PaginatedMoviesResponse } from "shared.graphql"
+# import { PaginatedTVShowsResponse } from "shared.graphql"
 
 input SearchInput {
   query: String!

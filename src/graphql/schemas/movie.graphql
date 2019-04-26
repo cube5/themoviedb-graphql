@@ -1,8 +1,16 @@
-# import { Genre } from "../typeDefs.graphql"
-# import { MovieStatus } from "../typeDefs.graphql"
-# import { ProductionCompany } from "../typeDefs.graphql"
-# import { ProductionCountry } from "../typeDefs.graphql"
-# import { SpokenLanguage } from "../typeDefs.graphql"
+# import { Genre } from "shared.graphql"
+# import { ProductionCompany } from "shared.graphql"
+# import { ProductionCountry } from "shared.graphql"
+# import { SpokenLanguage } from "shared.graphql"
+
+enum MovieStatus {
+  RUMORED
+  PLANNED
+  IN_PRODUCTION
+  POST_PRODUCTION
+  RELEASED
+  CANCELED
+}
 
 type Movie {
   id: ID
