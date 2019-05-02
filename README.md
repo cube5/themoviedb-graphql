@@ -35,10 +35,11 @@ In this case the dev server. The downside is that you have to run the dev server
 yarn gql:get-schema
 ```
 
-## Developing
+## Develop
 
 1. Clone the project
 2. Run `yarn install` to install dependencies
-3. Run `yarn dev` to start the graphql playground
-4. Open http://localhost:3000
-5. Drink a beer
+3. Rename `env.example` to `.env` and put your [tmdb api key](https://www.themoviedb.org/settings/api).
+4. Run `yarn dev` to start the graphql playground
+5. Open http://localhost:3000
+6. Drink a beer
