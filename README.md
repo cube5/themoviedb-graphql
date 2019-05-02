@@ -12,11 +12,11 @@ The project uses Apollo Server, Typescript, Babel, graphql-cli, etc.
 
 ### Runs development server
 
-Runs `gql:codegen` and `gql:prepare` to generate necessary files and then runs webpack in watch mode with the nodemon plugin to start the server.
-
 ```bash
-yarn develop
+yarn dev
 ```
+
+\* You can also use `now dev` if you have [now](https://zeit.co/now) installed.
 
 ### Generates typings from `src/generated/schema.graphql`
 
@@ -27,9 +27,9 @@ It is meant to be ran only after running `gql:prepare`
 yarn gql:codegen
 ```
 
-### Fetches the remote schema from a server into `src/generated/schema.graphql`. [graphql-cli](https://github.com/graphql-cli/graphql-cli#readme)
+### Fetches the remote schema from a server into `src/generated/schema.graphql` using the [graphql-cli](https://github.com/graphql-cli/graphql-cli#readme)
 
-in this case the dev server. The downside is that you have to run the dev server first and then run this task in another terminal tab.
+In this case the dev server. The downside is that you have to run the dev server first and then run this task in another terminal tab.
 
 ```bash
 yarn gql:get-schema
@@ -40,5 +40,5 @@ yarn gql:get-schema
 1. Clone the project
 2. Run `yarn install` to install dependencies
 3. Run `yarn dev` to start the graphql playground
-4. Open http://localhost:4000
+4. Open http://localhost:3000
 5. Drink a beer

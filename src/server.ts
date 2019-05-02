@@ -1,4 +1,4 @@
-import { ApolloServer } from "apollo-server";
+import { ApolloServer } from "apollo-server-micro";
 
 import "./dotenv";
 import schema from "./schema";
@@ -14,6 +14,6 @@ const server = new ApolloServer({
   context: () => ({ API_KEY })
 });
 
-server.listen().then(({ url }) => {
-  console.log(`Server ready at ${url} 🚀`);
-});
+const handler = server.createHandler();
+
+module.exports = handler;
