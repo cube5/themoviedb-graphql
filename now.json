@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "themoviedb-graphql",
+  "alias": "themoviedb-graphql",
+  "builds": [{ "src": "src/server.ts", "use": "@now/node" }],
+  "routes": [{ "src": "/.*", "dest": "src/server.ts" }],
+  "env": {
+    "API_KEY": "@api_key"
+  }
+}

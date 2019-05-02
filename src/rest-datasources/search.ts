@@ -1,5 +1,5 @@
-import TheMovieDBAPI from "@/rest-datasource";
-import { PaginatedMoviesResponse } from "@/generated/schema";
+import TheMovieDBAPI from "./";
+import { PaginatedMoviesResponse } from "../generated/schema";
 
 export default class SearchAPI extends TheMovieDBAPI {
   public async searchMovies(params): Promise<PaginatedMoviesResponse> {

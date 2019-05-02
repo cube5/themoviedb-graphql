@@ -1,8 +1,8 @@
-import TheMovieDBAPI from "@/rest-datasource";
+import TheMovieDBAPI from "./";
 import {
   PaginatedMoviesResponse,
   PaginatedTVShowsResponse
-} from "@/generated/schema";
+} from "../generated/schema";
 
 export default class DiscoverAPI extends TheMovieDBAPI {
   public async fetchMovies(params): Promise<PaginatedMoviesResponse> {

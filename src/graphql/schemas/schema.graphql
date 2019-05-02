@@ -1,9 +1,0 @@
-# import Discover from "discover.graphql"
-# import Search from "search.graphql"
-# import Movie from "movie.graphql"
-
-type Query {
-  discover: Discover
-  search: Search
-  movie(id: ID!): Movie
-}

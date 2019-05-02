@@ -1,6 +1,6 @@
-import { Discover } from "@/graphql/resolvers/discover";
-import { Search } from "@/graphql/resolvers/search";
-import { Query as movieQueries } from "@/graphql/resolvers/movie";
+import { movie } from "./movie";
+import { searchMovies, searchTvShows } from "./search";
+import { discoverMovies, discoverTvShows } from "./discover";
 
 /**
  * Enums map to handle internal values
@@ -35,22 +35,24 @@ const Enums = {
 };
 
 /**
- * Map containing resolvers for graphql types defined in the schema.
+ * Using resolver map for graphql types defined in the schema.
  *
  * @see https://www.apollographql.com/docs/apollo-server/v2/essentials/data.html#resolver-map
  */
-const TypeResolvers = {
-  Discover,
-  Search
-};
-
 const resolvers = {
   ...Enums,
-  ...TypeResolvers,
+  Search: {
+    movies: searchMovies,
+    tvShows: searchTvShows
+  },
+  Discover: {
+    movies: discoverMovies,
+    tvShows: discoverTvShows
+  },
   Query: {
-    discover: async () => ({}), // empty since it's resolved above
-    search: async () => ({}),
-    ...movieQueries
+    discover: async () => ({}), // empty but needed since it's resolved by Discover
+    search: async () => ({}), // empty but needed since it's resolved by Search
+    movie
   }
 };
 

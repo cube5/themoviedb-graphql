@@ -1,23 +1,30 @@
-"""
-Schema definition.
-
-This file contains the Queries and Mutations implemented so far,
-there should not be other files containing this kind of operations.
-"""
-type Query {
-  discover: Discover
-  search: Search
-  movie(id: ID!): Movie
-}
+# source: http://localhost:4000
+# timestamp: Fri Apr 26 2019 19:01:42 GMT-0500 (CDT)
 
 type Discover {
   movies(input: DiscoverMoviesInput): PaginatedMoviesResponse
   tvShows(input: DiscoverTvShowsInput): PaginatedTVShowsResponse
 }
 
-type Search {
-  movies(input: SearchInput): PaginatedMoviesResponse
-  tvShows(input: SearchInput): PaginatedTVShowsResponse
+input DiscoverMoviesInput {
+  language: String
+  sort_by: SortBy
+  include_adult: Boolean
+  include_video: Boolean
+  page: Int
+}
+
+input DiscoverTvShowsInput {
+  language: String
+  sort_by: SortBy
+  include_adult: Boolean
+  include_video: Boolean
+  page: Int
+}
+
+type Genre {
+  id: ID
+  name: String
 }
 
 type Movie {
@@ -48,74 +55,6 @@ type Movie {
   vote_count: Int
 }
 
-type PaginatedMoviesResponse {
-  page: Int
-  results: [MovieDiscover]
-  total_results: Int
-  total_pages: Int
-}
-
-input DiscoverMoviesInput {
-  language: String
-  sort_by: SortBy
-  include_adult: Boolean
-  include_video: Boolean
-  page: Int
-}
-
-type PaginatedTVShowsResponse {
-  page: Int
-  results: [TVShow]
-  total_results: Int
-  total_pages: Int
-}
-
-input DiscoverTvShowsInput {
-  language: String
-  sort_by: SortBy
-  include_adult: Boolean
-  include_video: Boolean
-  page: Int
-}
-
-input SearchInput {
-  query: String!
-  language: String
-  year: Int
-  page: Int
-}
-
-type Genre {
-  id: ID
-  name: String
-}
-
-type ProductionCompany {
-  id: ID!
-  logo_path: String
-  name: String
-  origin_country: String
-}
-
-type ProductionCountry {
-  iso_3166_1: String
-  name: String
-}
-
-type SpokenLanguage {
-  iso_639_1: String
-  name: String
-}
-
-enum MovieStatus {
-  RUMORED
-  PLANNED
-  IN_PRODUCTION
-  POST_PRODUCTION
-  RELEASED
-  CANCELED
-}
-
 type MovieDiscover {
   id: ID
   adult: Boolean
@@ -133,6 +72,59 @@ type MovieDiscover {
   vote_count: Int
 }
 
+enum MovieStatus {
+  RUMORED
+  PLANNED
+  IN_PRODUCTION
+  POST_PRODUCTION
+  RELEASED
+  CANCELED
+}
+
+type PaginatedMoviesResponse {
+  page: Int
+  results: [MovieDiscover]
+  total_results: Int
+  total_pages: Int
+}
+
+type PaginatedTVShowsResponse {
+  page: Int
+  results: [TVShow]
+  total_results: Int
+  total_pages: Int
+}
+
+type ProductionCompany {
+  id: ID!
+  logo_path: String
+  name: String
+  origin_country: String
+}
+
+type ProductionCountry {
+  iso_3166_1: String
+  name: String
+}
+
+type Query {
+  discover: Discover
+  search: Search
+  movie(id: ID!): Movie
+}
+
+type Search {
+  movies(input: SearchInput): PaginatedMoviesResponse
+  tvShows(input: SearchInput): PaginatedTVShowsResponse
+}
+
+input SearchInput {
+  query: String!
+  language: String
+  year: Int
+  page: Int
+}
+
 enum SortBy {
   POPULARITY_ASC
   POPULARITY_DESC
@@ -148,6 +140,11 @@ enum SortBy {
   VOTE_AVERAGE_DESC
   VOTE_COUNT_ASC
   VOTE_COUNT_DESC
+}
+
+type SpokenLanguage {
+  iso_639_1: String
+  name: String
 }
 
 type TVShow {
